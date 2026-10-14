@@ -1,0 +1,7 @@
+{
+  "framework": "nextjs",
+  "regions": ["fra1"],
+  "installCommand": "npm install",
+  "buildCommand": "next build",
+  "outputDirectory": ".next"
+}

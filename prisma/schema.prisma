@@ -1,0 +1,45 @@
+// Database dell'app (Postgres su Prisma Postgres, regione Francoforte).
+// L'URL di connessione sta in DATABASE_URL (vedi prisma.config.ts e .env.example).
+
+generator client {
+  provider = "prisma-client"
+  output   = "../lib/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id           Int         @id @default(autoincrement())
+  email        String      @unique
+  passwordHash String      @map("password_hash")
+  createdAt    DateTime    @default(now()) @map("created_at")
+  sessions     Session[]
+  states       UserState[]
+
+  @@map("users")
+}
+
+model Session {
+  tokenHash String @id @map("token_hash")
+  userId    Int    @map("user_id")
+  // scadenza in millisecondi (epoch), come nel vecchio database
+  expiresAt BigInt @map("expires_at")
+  user      User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@map("sessions")
+}
+
+// Stato dell'app di ogni utente (JSON serializzato: movimenti, conti, investimenti, impostazioni…)
+model UserState {
+  userId    Int      @map("user_id")
+  key       String
+  value     String   @db.Text
+  updatedAt DateTime @default(now()) @map("updated_at")
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@id([userId, key])
+  @@map("user_state")
+}

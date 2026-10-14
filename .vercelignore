@@ -1,0 +1,9 @@
+# Mai pubblicare database locali, backup o segreti
+data
+*.db
+*.db-*
+.env
+.env.*
+!.env.example
+.next*
+node_modules

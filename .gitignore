@@ -1,0 +1,8 @@
+node_modules
+.next
+data/*.db*
+.env*.local
+.next*
+lib/generated
+.vercel
+prisma/migrations
