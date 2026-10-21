@@ -1,0 +1,13 @@
+# PER GITHUB - Inviare modifiche
+git add .
+git commit -m "messaggio update"
+git push -u origin main
+
+# PER GITHUB - Per ricevere modifiche
+git pull
+
+# per avviare ambiente di prova in localhost / rete locale
+npm run dev
+
+# per deploy su vercel dell'app
+vercel --prod
