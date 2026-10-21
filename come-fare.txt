@@ -11,5 +11,3 @@ npm run dev
 
 # per deploy su vercel dell'app
 vercel --prod
-
-prova
